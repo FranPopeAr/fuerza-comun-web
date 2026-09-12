@@ -1,0 +1,3 @@
+@import url('preview-base.css');
+.hero-image, .sfsh-image-wrap > img, .news-image > img { position:absolute; inset:0; width:100%; height:100%; }
+.brand img, .footer img { display:block; }
