@@ -1,0 +1,1 @@
+Temporary encoded image assets may be removed after binary assets are committed.
