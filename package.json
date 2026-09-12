@@ -1,0 +1,26 @@
+{
+  "name": "fuerza-comun-web",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/copy-assets.mjs && next dev",
+    "build": "node scripts/copy-assets.mjs && next build",
+    "start": "next start",
+    "studio": "sanity dev"
+  },
+  "dependencies": {
+    "@portabletext/react": "latest",
+    "googleapis": "latest",
+    "next": "latest",
+    "next-sanity": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "sanity": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "typescript": "latest"
+  }
+}
