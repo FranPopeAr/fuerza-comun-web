@@ -1,6 +1,6 @@
 {
   "name": "fuerza-comun-web",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": true,
   "scripts": {
     "assets": "node scripts/fetch-assets.mjs",
@@ -9,7 +9,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "googleapis": "^144.0.0",
     "next": "15.5.24",
     "react": "19.1.1",
     "react-dom": "19.1.1"
