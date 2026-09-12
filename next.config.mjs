@@ -2,7 +2,6 @@
 const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
-    maximumRedirects: 5,
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.sanity.io' },
       { protocol: 'https', hostname: 'drive.google.com' },
