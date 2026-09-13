@@ -1,0 +1,36 @@
+name: Remove event image label
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/remove-event-label.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Remove redundant label
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('src/app/[[...slug]]/page.tsx')
+          text = path.read_text(encoding='utf-8')
+          old = '<span className="image-label">Encuentro de Fuerza Común</span>'
+          if old not in text:
+              raise SystemExit('Expected label not found')
+          path.write_text(text.replace(old, '', 1), encoding='utf-8')
+          PY
+      - name: Commit change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 'src/app/[[...slug]]/page.tsx'
+          git commit -m "Remove redundant event image label"
+          git push
