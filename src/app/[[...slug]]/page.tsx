@@ -14,7 +14,6 @@ const PLENARIO_REEL_URL = 'https://www.instagram.com/reel/DdhNoqsRcZg/';
 const PLENARIO_REEL_EMBED = 'https://www.instagram.com/reel/DdhNoqsRcZg/embed';
 const ROU_SLUG = 'acompanamos-comunicado-entornos-urbanos-riberenos';
 const PLENARIO_GALLERY = [
-  '/images/plenario-11.jpg',
   '/images/plenario-15.jpg',
   '/images/plenario-17.jpg',
   '/images/plenario-1.jpg',
