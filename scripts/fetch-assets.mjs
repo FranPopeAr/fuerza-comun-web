@@ -1,6 +1,11 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
+const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+const ALLOWED_MIMETYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const DRIVE_DOMAIN = 'drive.usercontent.google.com';
+
 const assets = [
   { name: 'hero.jpg', id: '1zoIeaIxCxXCTBMnyxw2o23-dbuQKwOUf', min: 500000 },
   { name: 'santa-fe-sin-hambre.jpg', id: '1ZHbq2rAz9S3PY9Rvhkm6ygMrBMNzkJwX', min: 200000 },
@@ -21,28 +26,75 @@ const assets = [
 const outDir = join(process.cwd(), 'public', 'images');
 await mkdir(outDir, { recursive: true });
 
+function validateId(id) {
+  if (typeof id !== 'string') throw new Error('Invalid ID type');
+  if (!/^[a-zA-Z0-9_-]{20,}$/.test(id)) throw new Error('Invalid ID format');
+  return true;
+}
+
+function validateExtension(filename) {
+  const ext = filename.split('.').pop().toLowerCase();
+  if (!ALLOWED_EXTENSIONS.includes(ext)) throw new Error(`Invalid extension: ${ext}`);
+  return ext;
+}
+
+function validateContentType(type) {
+  const basetype = (type.split(';')[0] || '').trim().toLowerCase();
+  if (!ALLOWED_MIMETYPES.includes(basetype)) throw new Error(`Invalid MIME type: ${basetype}`);
+  return basetype;
+}
+
 async function download(id) {
-  const urls = [
-    `https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t`,
-    `https://drive.google.com/uc?export=download&id=${id}`
-  ];
-  let lastError;
-  for (const url of urls) {
-    try {
-      const response = await fetch(url, { redirect: 'follow' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const type = response.headers.get('content-type') || '';
-      const bytes = Buffer.from(await response.arrayBuffer());
-      if (!type.startsWith('image/') && bytes.length < 100000) throw new Error(`Respuesta inválida: ${type}`);
-      return bytes;
-    } catch (error) { lastError = error; }
+  validateId(id);
+
+  const url = new URL(`https://${DRIVE_DOMAIN}/download`);
+  url.searchParams.set('id', id);
+  url.searchParams.set('export', 'download');
+  url.searchParams.set('confirm', 't');
+
+  try {
+    const response = await fetch(url.toString(), {
+      redirect: 'follow',
+      headers: { 'User-Agent': 'FuerzaComun-AssetFetcher/1.0' },
+      timeout: 30000
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const contentType = response.headers.get('content-type') || '';
+    const contentLength = parseInt(response.headers.get('content-length') || '0');
+
+    validateContentType(contentType);
+
+    if (contentLength > MAX_FILE_SIZE) {
+      throw new Error(`Content-Length exceeds maximum: ${contentLength} bytes`);
+    }
+
+    const bytes = Buffer.from(await response.arrayBuffer());
+
+    if (bytes.length > MAX_FILE_SIZE) {
+      throw new Error(`Downloaded file exceeds maximum size: ${bytes.length} bytes`);
+    }
+
+    if (bytes.length < 1000) {
+      throw new Error(`File too small: ${bytes.length} bytes`);
+    }
+
+    return bytes;
+  } catch (error) {
+    throw new Error(`Download failed for ID ${id}: ${error.message}`);
   }
-  throw lastError;
 }
 
 for (const asset of assets) {
+  validateExtension(asset.name);
+
   const bytes = await download(asset.id);
-  if (bytes.length < asset.min) throw new Error(`${asset.name}: archivo demasiado pequeño (${bytes.length})`);
-  await writeFile(join(outDir, asset.name), bytes);
+  if (bytes.length < asset.min) {
+    throw new Error(`${asset.name}: archivo demasiado pequeño (${bytes.length} < ${asset.min})`);
+  }
+
+  const outputPath = join(outDir, asset.name);
+  await writeFile(outputPath, bytes, { mode: 0o644 });
   console.log(`✓ ${asset.name}: ${(bytes.length / 1024 / 1024).toFixed(1)} MB`);
 }
