@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-node@v4.0.2
         with:
-          node-version: 22
-      - run: npm install --no-audit --no-fund
+          node-version: '22'
+          cache: 'npm'
+      - run: npm ci --no-fund
       - run: npm run build
