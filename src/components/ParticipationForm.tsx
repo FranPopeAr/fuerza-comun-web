@@ -15,6 +15,9 @@ export function ParticipationForm() {
         marginHeight={0}
         marginWidth={0}
         loading="lazy"
+        sandbox="allow-same-origin allow-forms allow-popups allow-presentation"
+        referrerPolicy="no-referrer"
+        allow="camera 'none'; microphone 'none'; geolocation 'none'"
         style={{ display: 'block', width: '100%', minHeight: '1450px', border: 0 }}
       >
         Cargando…
