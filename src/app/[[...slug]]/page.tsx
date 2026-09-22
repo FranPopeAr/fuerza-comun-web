@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ParticipationForm } from '@/components/ParticipationForm';
 
-const SANITY_PROJECT_ID = 'bhfaic2v';
-const SANITY_DATASET = 'production';
-const SANITY_API_VERSION = '2025-02-19';
+const SANITY_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'bhfaic2v';
+const SANITY_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
+const SANITY_API_VERSION = process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-02-19';
 const EVENT_SLUG = 'hacer-en-comun-19-septiembre';
 const EVENT_FORM_URL = 'https://forms.gle/td9Z3RZ6q3pwtrLB9';
 const EVENT_IMAGE = 'https://drive.google.com/uc?export=view&id=1nC7Zkl6e_6askx9PAnioEVLTkUFFGjfl';
