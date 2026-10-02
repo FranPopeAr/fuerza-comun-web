@@ -6,9 +6,7 @@ import { ParticipationForm } from '@/components/ParticipationForm';
 const SANITY_PROJECT_ID = 'bhfaic2v';
 const SANITY_DATASET = 'production';
 const SANITY_API_VERSION = '2025-02-19';
-const EVENT_SLUG = 'hacer-en-comun-19-septiembre';
-const EVENT_FORM_URL = 'https://forms.gle/td9Z3RZ6q3pwtrLB9';
-const EVENT_IMAGE = 'https://drive.google.com/uc?export=view&id=1nC7Zkl6e_6askx9PAnioEVLTkUFFGjfl';
+const HACER_FORM_URL = 'https://forms.gle/JNqpT662JmFpzyqX9';
 const PLENARIO_SLUG = 'plenario-hacer-en-comun-septiembre-2026';
 const PLENARIO_REEL_URL = 'https://www.instagram.com/reel/DdhNoqsRcZg/';
 const PLENARIO_REEL_EMBED = 'https://www.instagram.com/reel/DdhNoqsRcZg/embed';
@@ -21,6 +19,29 @@ const PLENARIO_GALLERY = [
   '/images/plenario-7.jpg',
   '/images/plenario-20.jpg',
   '/images/plenario-23.jpg',
+];
+
+const HACER_DEVICES = [
+  {
+    icon: '🩺',
+    title: 'Salud y prevención',
+    text: 'Acciones y acompañamiento comunitario vinculados al acceso a la salud y al cuidado. Incluye prevención, promoción de derechos y acompañamiento ante distintas situaciones vinculadas al cuidado y al acceso a la salud.',
+  },
+  {
+    icon: '🛠️',
+    title: 'Trabajo comunitario',
+    text: 'Recuperación, limpieza y mejoramiento de espacios públicos en los barrios. Identificamos necesidades, organizamos jornadas y trabajamos colectivamente sobre espacios de uso común.',
+  },
+  {
+    icon: '🎨',
+    title: 'Infancias, Arte y Cultura',
+    text: 'Espacios, propuestas y actividades para infancias desde la diversión y el encuentro, a través del juego, el arte, la cultura y distintas actividades comunitarias.',
+  },
+  {
+    icon: '📚',
+    title: 'Educación',
+    text: 'Apoyo escolar y construcción de herramientas para aprender y enseñar en comunidad, generando espacios donde el aprendizaje pueda construirse colectivamente.',
+  },
 ];
 
 type SanityBlock = {
@@ -73,27 +94,6 @@ type SiteContent = {
   about: AboutData;
 };
 
-const featuredEvent: ArticleData = {
-  slug: EVENT_SLUG,
-  category: 'Fuerza Común',
-  title: 'Hacer en Común: resultados, encuentro y nueva etapa de voluntariado',
-  text: 'El sábado 19 de septiembre nos encontramos para compartir los resultados de Santa Fe Sin Hambre y lanzar una nueva etapa de voluntariado.',
-  image: EVENT_IMAGE,
-  imageAlt: 'Invitación al encuentro Hacer en Común de Fuerza Común',
-  body: [
-    'Queremos invitarte a Hacer en Común, un nuevo encuentro de Fuerza Común. Vamos a compartir los resultados del relevamiento “Santa Fe sin Hambre” y empezar a planificar juntos lo que viene.',
-    'Durante 60 días recorrimos barrios, comedores y espacios comunitarios. Ahora vamos a presentar los principales datos, compartir un audiovisual realizado durante el relevamiento y poner en común toda la experiencia.',
-    'También vamos a lanzar una nueva etapa de voluntariado Hacer en Común, con cuatro dispositivos de trabajo:',
-    '🩺 Salud',
-    '🤝 Trabajo comunitario',
-    '🧒 Infancias, Arte y Cultura',
-    '📚 Educativo',
-    'Después de la presentación vamos a trabajar en comisiones, para pensar colectivamente qué acciones podemos construir en esta nueva etapa marcada por el deterioro de la vida de miles de santafesinas y santafesinos y la emergencia hídrica.',
-    '📅 Sábado 19/09 · 🕐 9:00 · 📍 FESTRAM, Av. Freyre 1635.',
-    'Es necesario inscribirse previamente en el formulario. ¡Te esperamos!',
-  ],
-};
-
 const fallbackSettings: Settings = {
   heroEyebrow: 'Fuerza Común · Santa Fe',
   heroTitle: 'Sentir en común para transformarlo todo.',
@@ -122,7 +122,6 @@ const fallbackAxes: AxisData[] = [
 ];
 
 const fallbackNews: ArticleData[] = [
-  featuredEvent,
   { slug: 'relevamientos-en-comedores-y-barrios', category: 'Santa Fe Sin Hambre', title: 'Relevamientos en comedores y barrios', text: 'Construimos un mapa de la emergencia alimentaria junto a organizaciones sociales y espacios comunitarios de toda la ciudad.', image: '/images/santa-fe-sin-hambre.jpg', imageAlt: 'Santa Fe Sin Hambre', body: ['Santa Fe Sin Hambre releva comedores, copas de leche y merenderos para construir información sobre la situación alimentaria de la ciudad.', 'La web va a incorporar el material histórico de la campaña y los resultados 2026 cuando sean publicados.'] },
   { slug: 'debate-por-una-ciudad-mas-justa', category: 'Ciudad', title: 'Participamos del debate por una ciudad más justa', text: 'Llevamos propuestas sobre hábitat, integración sociourbana, ambiente y participación para ampliar derechos.', image: '/images/actividad.jpg', imageAlt: 'Actividad de Fuerza Común', body: ['Participamos de instancias de discusión sobre el presente y el futuro de Santa Fe con una mirada centrada en derechos, participación y planificación.', 'Este espacio va a reunir documentos, propuestas y materiales vinculados con esos debates.'] },
   { slug: 'organizacion-y-participacion', category: 'Organización', title: 'La ciudad se transforma con organización y participación', text: 'Nos encontramos en barrios, clubes, universidades y organizaciones para construir respuestas colectivas.', image: '/images/organizacion.jpg', imageAlt: 'Encuentro de Fuerza Común', body: ['Fuerza Común se construye a partir del encuentro, la participación y el trabajo colectivo en distintos espacios de la ciudad.', 'Queremos que esta web sea también una herramienta para facilitar esos encuentros y acercar nuevas personas a las actividades.'] },
@@ -212,9 +211,9 @@ async function loadContent(): Promise<SiteContent> {
           imageAlt: a.imageAlt || a.title || fallbackNews[i]?.imageAlt || '',
           body: bodyParagraphs(a.body).length ? bodyParagraphs(a.body) : fallbackNews[i]?.body ?? [],
         }))
-      : fallbackNews.filter((n) => n.slug !== EVENT_SLUG);
+      : fallbackNews;
 
-    const news = sanityNews.some((n) => n.slug === EVENT_SLUG) ? sanityNews : [featuredEvent, ...sanityNews];
+    const news = sanityNews;
 
     const aboutBody = bodyParagraphs(result.about?.body);
     const about: AboutData = {
@@ -230,11 +229,11 @@ async function loadContent(): Promise<SiteContent> {
 }
 
 function Header() {
-  const links = [['Qué somos','/quienes-somos'],['Ejes','/ejes'],['Santa Fe Sin Hambre','/santa-fe-sin-hambre'],['Actualidad','/actualidad'],['Territorio','/territorio']];
+  const links = [['Qué somos','/quienes-somos'],['Ejes','/ejes'],['Santa Fe Sin Hambre','/santa-fe-sin-hambre'],['Hacer en Común','/hacer-en-comun'],['Actualidad','/actualidad'],['Territorio','/territorio']];
   return <header className="site-header"><div className="container header-inner"><Link className="brand" href="/"><Image src="/images/logo.png" alt="Fuerza Común" width={188} height={74} priority /></Link><nav className="desktop-nav">{links.map(([l,h]) => <Link key={h} href={h}>{l}</Link>)}<Link className="button button-small" href="/participa">Participá</Link></nav><details className="mobile-menu"><summary>Menú</summary><div className="mobile-menu-panel">{links.map(([l,h]) => <Link key={h} href={h}>{l}</Link>)}<Link href="/participa">Participá</Link></div></details></div></header>;
 }
 
-function Footer() { return <footer className="footer"><div className="container footer-grid"><div><Image src="/images/logo-white.png" alt="Fuerza Común" width={210} height={82} /><p className="footer-tagline">Sentir en común para transformarlo todo.</p></div><div className="footer-links"><Link href="/quienes-somos">Quiénes somos</Link><Link href="/ejes">Nuestros ejes</Link><Link href="/santa-fe-sin-hambre">Santa Fe Sin Hambre</Link><Link href="/participa">Participá</Link></div><div className="footer-links"><a href="https://www.instagram.com/fuerzacomun_/" target="_blank" rel="noreferrer">Instagram</a><a href="https://www.facebook.com/fuerzacomunsf?locale=es_LA" target="_blank" rel="noreferrer">Facebook</a><span>Santa Fe, Argentina</span></div></div><div className="container footer-bottom">© Fuerza Común</div></footer>; }
+function Footer() { return <footer className="footer"><div className="container footer-grid"><div><Image src="/images/logo-white.png" alt="Fuerza Común" width={210} height={82} /><p className="footer-tagline">Sentir en común para transformarlo todo.</p></div><div className="footer-links"><Link href="/quienes-somos">Quiénes somos</Link><Link href="/ejes">Nuestros ejes</Link><Link href="/santa-fe-sin-hambre">Santa Fe Sin Hambre</Link><Link href="/hacer-en-comun">Hacer en Común</Link><Link href="/participa">Participá</Link></div><div className="footer-links"><a href="https://www.instagram.com/fuerzacomun_/" target="_blank" rel="noreferrer">Instagram</a><a href="https://www.facebook.com/fuerzacomunsf?locale=es_LA" target="_blank" rel="noreferrer">Facebook</a><span>Santa Fe, Argentina</span></div></div><div className="container footer-bottom">© Fuerza Común</div></footer>; }
 
 function Heading({ eyebrow, title, inverted=false }: { eyebrow:string; title:string; inverted?:boolean }) { return <div className={`section-heading ${inverted?'inverted':''}`}><span>{eyebrow}</span><h2>{title}</h2></div>; }
 
@@ -249,11 +248,11 @@ function Home({settings, axes, news}:{settings:Settings; axes:AxisData[]; news:A
   const homeNews = news.filter((n) => n.slug !== PLENARIO_SLUG);
   return <><Header /><main>
   <section className="hero"><Image className="hero-image" src="/images/hero.jpg" alt="Encuentro de Fuerza Común" fill priority quality={95} sizes="100vw" /><div className="hero-overlay" /><div className="container hero-content"><p className="eyebrow light">{settings.heroEyebrow}</p><h1><HeroTitle text={settings.heroTitle}/></h1><p className="hero-copy">{settings.heroIntro}</p><div className="hero-actions"><Link href="/participa" className="button">Sumate</Link><Link href="/quienes-somos" className="button button-ghost-light">Conocenos</Link></div></div></section>
-  <section className="section section-light plenario-home" style={{borderBottom:'1px solid rgba(46,45,44,.18)'}}><div className="container sfsh-grid"><div className="sfsh-image-wrap plenario-home-image"><Image src="/images/plenario-11.jpg" alt="Plenario Hacer en Común de Fuerza Común" fill priority quality={95} sizes="(max-width: 800px) 100vw, 50vw" /></div><div className="sfsh-copy"><p className="eyebrow">Plenario Hacer en Común · 19 de septiembre</p><h2>Nos encontramos para organizar lo que viene.</h2><p>Personas de distintos sectores y edades participaron de una nueva jornada de debate y organización, una característica que sigue marcando la construcción de Fuerza Común.</p><p>Trabajamos en <strong>siete comisiones</strong> alrededor de cuatro grandes temas: Salud y prevención de consumos y violencia de género; Trabajo comunitario; Infancias, Arte y Cultura; y Educación.</p><div className="hero-actions"><Link className="button" href={`/actualidad/${PLENARIO_SLUG}`}>Ver el Plenario</Link><a className="button button-dark" href={PLENARIO_REEL_URL} target="_blank" rel="noreferrer">Ver publicación en Instagram</a></div></div></div></section>
+  <section className="section section-light hacer-home" style={{borderBottom:'1px solid rgba(46,45,44,.18)'}}><div className="container"><div className="hacer-home-head"><div><p className="eyebrow">Hacer en Común</p><h2>4 formas de hacer en común.</h2></div><div><p>La nueva etapa toma la experiencia del voluntariado de Santa Fe Sin Hambre y la transforma en una propuesta de participación comunitaria sostenida, para mantener un vínculo permanente con los barrios a través de acciones concretas.</p><Link className="button" href="/hacer-en-comun">Conocé el voluntariado</Link></div></div><div className="hacer-device-grid">{HACER_DEVICES.map((d,i)=><article className="hacer-device-card" key={d.title}><span className="hacer-device-number">{String(i+1).padStart(2,'0')}</span><b aria-hidden="true">{d.icon}</b><h3>{d.title}</h3><p>{d.text}</p></article>)}</div></div></section>
   <section className="section section-light"><div className="container"><Heading eyebrow="01 / Fuerza Común" title="Una fuerza que nace de encontrarnos." /><div className="pillars-grid">{settings.pillars.map((p,i)=><article className="pillar-card" key={`${p.title}-${i}`}><span className="card-number">{String(i+1).padStart(2,'0')}</span><h3>{p.title}</h3><p>{p.text}</p></article>)}</div></div></section>
   <section className="section axes-section"><div className="container"><Heading eyebrow="02 / Nuestros ejes" title="Lo común también se construye con prioridades." inverted /><div className="axes-grid">{axes.map(a=><Link className="axis-card" key={a.slug} href={`/ejes/${a.slug}`}><span>{a.index}</span><h3>{a.title}</h3><p>{a.text}</p><b>↗</b></Link>)}</div></div></section>
-  <section className="section sfsh-section"><div className="container sfsh-grid"><div className="sfsh-image-wrap"><Image src="/images/santa-fe-sin-hambre.jpg" alt="Santa Fe Sin Hambre" fill quality={95} sizes="(max-width: 800px) 100vw, 50vw" /><span className="image-label">Santa Fe Sin Hambre</span></div><div className="sfsh-copy"><p className="eyebrow">03 / Proyecto destacado</p><h2>{settings.sfshTitle}</h2><p>{settings.sfshText}</p><div className="data-note"><strong>2026</strong><span>Los nuevos resultados se incorporarán cuando finalice su publicación.</span></div><Link className="button button-dark" href="/santa-fe-sin-hambre">Conocé el proyecto</Link></div></div></section>
-  <section className="section section-light"><div className="container"><Heading eyebrow="04 / Ahora" title="Lo que estamos haciendo." /><div className="news-grid">{homeNews.map(n=><article className="news-card" key={n.slug}>{n.slug===ROU_SLUG?<div className="news-image rou-card-visual"><span>Ambiente y río</span><strong>Ordenamiento urbano</strong></div>:<div className="news-image"><Image src={n.image} alt={n.imageAlt} fill quality={92} sizes="(max-width: 800px) 100vw, 33vw" style={n.slug===EVENT_SLUG?{objectFit:'contain',background:'#f3f2f0'}:undefined} /></div>}<div className="news-body"><span>{n.category}</span><h3>{n.title}</h3><p>{n.text}</p><Link href={`/actualidad/${n.slug}`}>Leer más →</Link></div></article>)}</div></div></section>
+  <section className="section sfsh-section"><div className="container sfsh-grid"><div className="sfsh-image-wrap"><Image src="/images/santa-fe-sin-hambre.jpg" alt="Santa Fe Sin Hambre" fill quality={95} sizes="(max-width: 800px) 100vw, 50vw" /><span className="image-label">Santa Fe Sin Hambre</span></div><div className="sfsh-copy"><p className="eyebrow">03 / Proyecto destacado</p><h2>{settings.sfshTitle}</h2><p>{settings.sfshText}</p><div className="data-note"><strong>2026</strong><span>Ya están disponibles los resultados del relevamiento.</span></div><Link className="button button-dark" href="/santa-fe-sin-hambre">Ver resultados 2026</Link></div></div></section>
+  <section className="section section-light"><div className="container"><Heading eyebrow="04 / Ahora" title="Lo que estamos haciendo." /><div className="news-grid">{homeNews.map(n=><article className="news-card" key={n.slug}>{n.slug===ROU_SLUG?<div className="news-image rou-card-visual"><span>Ambiente y río</span><strong>Ordenamiento urbano</strong></div>:<div className="news-image"><Image src={n.image} alt={n.imageAlt} fill quality={92} sizes="(max-width: 800px) 100vw, 33vw" /></div>}<div className="news-body"><span>{n.category}</span><h3>{n.title}</h3><p>{n.text}</p><Link href={`/actualidad/${n.slug}`}>Leer más →</Link></div></article>)}</div></div></section>
   <section className="section territory-section"><div className="container territory-grid"><div><Heading eyebrow="05 / Territorio" title={settings.territoryTitle} inverted /><p className="territory-copy">{settings.territoryText}</p><Link className="button button-light" href="/territorio">Ver territorio</Link></div><Map /></div></section>
   <section className="cta-section"><div className="container cta-inner"><p className="eyebrow">06 / Participá</p><h2>{settings.ctaTitle}</h2><p>{settings.ctaText}</p><Link className="button button-dark" href="/participa">Quiero sumarme</Link></div></section>
 </main><Footer /></>; }
@@ -281,10 +280,19 @@ function Sfsh({settings}:{settings:Settings}) {
   </Shell>;
 }
 
-function News({news}:{news:ArticleData[]}) { return <Shell><section className="internal-hero"><div className="container"><p className="eyebrow">Actualidad</p><h1>Lo que estamos haciendo ahora.</h1></div></section><section className="section section-light"><div className="container news-grid">{news.map(n=><article className="news-card" key={n.slug}>{n.slug===ROU_SLUG?<div className="news-image rou-card-visual"><span>Ambiente y río</span><strong>Ordenamiento urbano</strong></div>:<div className="news-image"><Image src={n.image} alt={n.imageAlt} fill quality={92} sizes="(max-width: 800px) 100vw, 33vw" style={n.slug===EVENT_SLUG?{objectFit:'contain',background:'#f3f2f0'}:undefined} /></div>}<div className="news-body"><span>{n.category}</span><h2>{n.title}</h2><p>{n.text}</p><Link href={`/actualidad/${n.slug}`}>Leer más →</Link></div></article>)}</div></section></Shell>; }
-function Article({slug, news}:{slug:string; news:ArticleData[]}) { const n=news.find(x=>x.slug===slug); if(!n) notFound(); const isEvent=n.slug===EVENT_SLUG; const isPlenario=n.slug===PLENARIO_SLUG; const isRou=n.slug===ROU_SLUG; return <Shell><section className="article-hero"><div className="container"><p className="eyebrow">{n.category}</p><h1>{n.title}</h1><p className="lead">{n.text}</p></div></section>{isRou?<div className="article-image rou-article-visual"><span>Ambiente y río</span><strong>Ordenamiento urbano y entornos ribereños</strong></div>:<div className="article-image" style={isEvent?{maxWidth:'760px',margin:'0 auto',height:'min(1100px, 125vw)',background:'#f3f2f0'}:undefined}><Image src={n.image} alt={n.imageAlt} fill priority quality={95} sizes={isEvent?'(max-width: 800px) 100vw, 760px':'100vw'} style={isEvent?{objectFit:'contain'}:undefined} /></div>}<section className="section section-light"><div className="container narrow">{n.body.map((p,i)=><p className="large-copy detail-copy" key={i}>{p}</p>)}{isPlenario&&<><div className="plenario-conclusions"><strong>Próximamente</strong><span>Vamos a publicar el documento con las conclusiones del Plenario.</span></div><div className="plenario-reel"><iframe src={PLENARIO_REEL_EMBED} title="Publicación del Plenario Hacer en Común en Instagram" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" /><a className="button button-dark" href={PLENARIO_REEL_URL} target="_blank" rel="noreferrer">Ver publicación en Instagram</a></div></>} {isEvent&&<div style={{marginTop:'32px',display:'flex',gap:'14px',flexWrap:'wrap'}}><a className="button" href={EVENT_FORM_URL} target="_blank" rel="noreferrer">Inscribirme al encuentro</a><Link className="button button-dark" href="/actualidad">Volver a Actualidad</Link></div>}</div>{isPlenario&&<div className="container plenario-gallery"><p className="eyebrow">Galería del Plenario</p><div>{PLENARIO_GALLERY.map((src,i)=><figure key={src}><Image src={src} alt={`Plenario Hacer en Común · foto ${i+1}`} fill quality={92} sizes="(max-width: 700px) 100vw, 50vw" /></figure>)}</div></div>}</section></Shell>; }
+function HacerEnComun() { return <Shell>
+  <section className="internal-hero hacer-hero"><div className="container"><p className="eyebrow">Hacer en Común</p><h1>4 formas de hacer en común.</h1><p className="lead">La nueva etapa toma la experiencia del voluntariado de Santa Fe Sin Hambre y la transforma en una propuesta de participación comunitaria sostenida. El eje ya no es solamente relevar una problemática, sino mantener un vínculo permanente con los barrios a través de acciones concretas.</p></div></section>
+  <section className="section section-light"><div className="container"><div className="hacer-device-grid hacer-device-grid-page">{HACER_DEVICES.map((d,i)=><article className="hacer-device-card" key={d.title}><span className="hacer-device-number">{String(i+1).padStart(2,'0')}</span><b aria-hidden="true">{d.icon}</b><h2>{d.title}</h2><p>{d.text}</p></article>)}</div></div></section>
+  <section id="inscripcion" className="section hacer-signup"><div className="container hacer-signup-grid"><div><p className="eyebrow">Voluntariado</p><h2>Sumate a Hacer en Común.</h2><p>Si no participaste de la Campaña Santa Fe Sin Hambre y querés sumarte al voluntariado Hacer en Común, inscribite en el formulario.</p><a className="button button-dark" href={HACER_FORM_URL} target="_blank" rel="noreferrer">Abrir formulario</a></div><div className="participation-form hacer-form"><iframe src={HACER_FORM_URL} title="Formulario de voluntariado Hacer en Común" width="100%" height="1200" frameBorder="0" loading="lazy" style={{display:'block',width:'100%',minHeight:'1200px',border:0}} /></div></div></section>
+</Shell>; }
+
+function News({news}:{news:ArticleData[]}) { return <Shell><section className="internal-hero"><div className="container"><p className="eyebrow">Actualidad</p><h1>Lo que estamos haciendo ahora.</h1></div></section><section className="section section-light"><div className="container news-grid">{news.map(n=><article className="news-card" key={n.slug}>{n.slug===ROU_SLUG?<div className="news-image rou-card-visual"><span>Ambiente y río</span><strong>Ordenamiento urbano</strong></div>:<div className="news-image"><Image src={n.image} alt={n.imageAlt} fill quality={92} sizes="(max-width: 800px) 100vw, 33vw" /></div>}<div className="news-body"><span>{n.category}</span><h2>{n.title}</h2><p>{n.text}</p><Link href={`/actualidad/${n.slug}`}>Leer más →</Link></div></article>)}</div></section></Shell>; }
+function Article({slug, news}:{slug:string; news:ArticleData[]}) { const n=news.find(x=>x.slug===slug); if(!n) notFound(); const isPlenario=n.slug===PLENARIO_SLUG; const isRou=n.slug===ROU_SLUG; return <Shell><section className="article-hero"><div className="container"><p className="eyebrow">{n.category}</p><h1>{n.title}</h1><p className="lead">{n.text}</p></div></section>{isRou?<div className="article-image rou-article-visual"><span>Ambiente y río</span><strong>Ordenamiento urbano y entornos ribereños</strong></div>:<div className="article-image"><Image src={n.image} alt={n.imageAlt} fill priority quality={95} sizes="100vw" /></div>}<section className="section section-light"><div className="container narrow">{n.body.map((p,i)=><p className="large-copy detail-copy" key={i}>{p}</p>)}{isPlenario&&<><div className="plenario-conclusions"><strong>Próximamente</strong><span>Vamos a publicar el documento con las conclusiones del Plenario.</span></div><div className="plenario-reel"><iframe src={PLENARIO_REEL_EMBED} title="Publicación del Plenario Hacer en Común en Instagram" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" /><a className="button button-dark" href={PLENARIO_REEL_URL} target="_blank" rel="noreferrer">Ver publicación en Instagram</a></div></>}</div>{isPlenario&&<div className="container plenario-gallery"><p className="eyebrow">Galería del Plenario</p><div>{PLENARIO_GALLERY.map((src,i)=><figure key={src}><Image src={src} alt={`Plenario Hacer en Común · foto ${i+1}`} fill quality={92} sizes="(max-width: 700px) 100vw, 50vw" /></figure>)}</div></div>}</section></Shell>; }
 function Territory({settings}:{settings:Settings}) { return <Shell><section className="internal-hero dark"><div className="container"><p className="eyebrow light">Territorio</p><h1>La ciudad se construye desde sus barrios.</h1></div></section><section className="section territory-section"><div className="container territory-grid"><div><h2>{settings.territoryTitle}</h2><p className="territory-copy">{settings.territoryText}</p></div><Map/></div></section></Shell>; }
-function Participate() { return <Shell><section className="participate-hero"><div className="container participate-grid"><div><p className="eyebrow">Participá</p><h1>Lo común empieza cuando nos encontramos.</h1><p className="lead">Dejanos tus datos y contanos en qué te gustaría participar.</p></div><ParticipationForm /></div></section></Shell>; }
+function Participate() { return <Shell>
+  <section className="participate-hero participate-choice-hero"><div className="container"><p className="eyebrow">Participá</p><h1>Lo común empieza cuando nos encontramos.</h1><p className="lead">Hoy podés acercarte a Fuerza Común de dos maneras.</p><div className="participate-choices"><article><span>01</span><h2>Sumarme a Fuerza Común</h2><p>Dejanos tus datos y contanos en qué espacios o temas te gustaría participar.</p><a className="button button-dark" href="#sumarme">Quiero sumarme</a></article><article><span>02</span><h2>Voluntariado Hacer en Común</h2><p>Conocé los cuatro dispositivos de trabajo comunitario y sumate a las próximas acciones.</p><Link className="button button-dark" href="/hacer-en-comun">Conocer Hacer en Común</Link></article></div></div></section>
+  <section id="sumarme" className="section section-light"><div className="container participate-grid"><div><p className="eyebrow">Sumate a Fuerza Común</p><h2 className="participate-form-title">Contanos cómo querés participar.</h2><p className="lead">Este formulario es la puerta general para acercarte a Fuerza Común.</p></div><ParticipationForm /></div></section>
+</Shell>; }
 
 export default async function Page({params}:{params:Promise<{slug?:string[]}>}) {
   const {slug=[]}=await params;
@@ -295,6 +303,7 @@ export default async function Page({params}:{params:Promise<{slug?:string[]}>}) 
   if(slug.length===1 && slug[0]==='ejes') return <Axes axes={content.axes}/>;
   if(slug.length===2 && slug[0]==='ejes') return <Axis slug={slug[1]} axes={content.axes} news={content.news}/>;
   if(slug.length===1 && slug[0]==='santa-fe-sin-hambre') return <Sfsh settings={content.settings}/>;
+  if(slug.length===1 && slug[0]==='hacer-en-comun') return <HacerEnComun/>;
   if(slug.length===1 && slug[0]==='actualidad') return <News news={content.news}/>;
   if(slug.length===2 && slug[0]==='actualidad') return <Article slug={slug[1]} news={content.news}/>;
   if(slug.length===1 && slug[0]==='territorio') return <Territory settings={content.settings}/>;
