@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { ParticipationForm } from '@/components/ParticipationForm';
 
 const SANITY_PROJECT_ID = 'bhfaic2v';
@@ -305,6 +305,7 @@ export default async function Page({params}:{params:Promise<{slug?:string[]}>}) 
   if(slug.length===1 && slug[0]==='santa-fe-sin-hambre') return <Sfsh settings={content.settings}/>;
   if(slug.length===1 && slug[0]==='hacer-en-comun') return <HacerEnComun/>;
   if(slug.length===1 && slug[0]==='actualidad') return <News news={content.news}/>;
+  if(slug.length===2 && slug[0]==='actualidad' && slug[1]==='hacer-en-comun-19-septiembre') redirect(`/actualidad/${PLENARIO_SLUG}`);
   if(slug.length===2 && slug[0]==='actualidad') return <Article slug={slug[1]} news={content.news}/>;
   if(slug.length===1 && slug[0]==='territorio') return <Territory settings={content.settings}/>;
   if(slug.length===1 && slug[0]==='participa') return <Participate/>;
