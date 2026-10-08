@@ -14,6 +14,10 @@ const assets = [
   { name: 'plenario-7.jpg', id: '1wSdRx4vEaeofvEoUTd4VwDsf-2_EDblt', min: 500000 },
   { name: 'plenario-20.jpg', id: '1cQHnOwKIA4NhpaN1wTQWiOpedjmrpBSn', min: 500000 },
   { name: 'plenario-23.jpg', id: '1KYVssqFNGzSc-dhN_pV2QjABW1bydmgi', min: 500000 },
+  { name: 'hacer-santa-rosa-0001.jpg', id: '1wz1bnDTYrg1CUy27oaLBbWNVovcLVyZQ', min: 500000 },
+  { name: 'hacer-santa-rosa-0002.jpg', id: '1WBtcsh5HQ8baAf06h-J7WlIgZfm48tPN', min: 500000 },
+  { name: 'hacer-santa-rosa-0003.jpg', id: '1D4Nd0gmpo-hiH9OUTPyZ10j3m1RPv5wu', min: 500000 },
+  { name: 'hacer-santa-rosa-0004.jpg', id: '1qJRipfiSSmPe785-jt6asfTVB50A8gTu', min: 500000 },
   { name: 'logo.png', id: '1Vyaw-61UKtqBYUKmPu9KwnOBaFehErXc', min: 5000 },
   { name: 'logo-white.png', id: '10CZgCff-5dgUg-327k5reAXJjDy102a4', min: 5000 }
 ];
