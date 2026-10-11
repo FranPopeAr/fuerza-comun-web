@@ -18,6 +18,7 @@ const assets = [
   { name: 'hacer-santa-rosa-0002.jpg', id: '1WBtcsh5HQ8baAf06h-J7WlIgZfm48tPN', min: 500000 },
   { name: 'hacer-santa-rosa-0003.jpg', id: '1D4Nd0gmpo-hiH9OUTPyZ10j3m1RPv5wu', min: 500000 },
   { name: 'hacer-santa-rosa-0004.jpg', id: '1qJRipfiSSmPe785-jt6asfTVB50A8gTu', min: 500000 },
+  { name: 'brasil-elecciones.jpg', id: '1I2lp5QrLw6y-nyPlO71DMvVbsVNQG9_U', min: 200000 },
   { name: 'logo.png', id: '1Vyaw-61UKtqBYUKmPu9KwnOBaFehErXc', min: 5000 },
   { name: 'logo-white.png', id: '10CZgCff-5dgUg-327k5reAXJjDy102a4', min: 5000 }
 ];
