@@ -19,6 +19,14 @@ const assets = [
   { name: 'hacer-santa-rosa-0003.jpg', id: '1D4Nd0gmpo-hiH9OUTPyZ10j3m1RPv5wu', min: 500000 },
   { name: 'hacer-santa-rosa-0004.jpg', id: '1qJRipfiSSmPe785-jt6asfTVB50A8gTu', min: 500000 },
   { name: 'brasil-elecciones.jpg', id: '1I2lp5QrLw6y-nyPlO71DMvVbsVNQG9_U', min: 200000 },
+  { name: 'documental-sfsh-28.jpg', id: '1Siix_lbYiNGSsVf7Wn2KXE3cyWZ9IWe6', min: 500000 },
+  { name: 'documental-sfsh-24.jpg', id: '1zbu6ZEYBI1nC4Fwu4LBdIbUHSMBkKVXr', min: 500000 },
+  { name: 'documental-sfsh-8.jpg', id: '1s-yRoxtkNE3BVu-vlrYSk4jRsccigBLS', min: 500000 },
+  { name: 'documental-sfsh-23.jpg', id: '1b8H2tZV-qPqtMTLtJZTJDiGaAaGZiC-y', min: 500000 },
+  { name: 'documental-sfsh-17.jpg', id: '1RyW81YgqJGy1VlgUbE76U1qx0Wtc_283', min: 500000 },
+  { name: 'documental-sfsh-15.jpg', id: '1W6egmLQ9SnsV_TrzQj-GD5SSaBGyTClt', min: 500000 },
+  { name: 'documental-sfsh-16.jpg', id: '1DXSgZ3eJn89Ko_nyruLnu3027AF_kLKk', min: 500000 },
+  { name: 'documental-sfsh-31.jpg', id: '1oj7DP8JLjUwzG_AAiN_bpsVTCtQ7j_65', min: 500000 },
   { name: 'logo.png', id: '1Vyaw-61UKtqBYUKmPu9KwnOBaFehErXc', min: 5000 },
   { name: 'logo-white.png', id: '10CZgCff-5dgUg-327k5reAXJjDy102a4', min: 5000 }
 ];
